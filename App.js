@@ -19,11 +19,31 @@ export default function App() {
       {/* Subtítulo */}
       <Text style={styles.subtitle}>¿Qué tipo de usuario eres?</Text>
 
+      
+
       {/* Botones para tipos de usuario */}
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.buttonInvitado}>
           <Image source={require('./assets/invitado.svg')} style={styles.icon} />
           <Text style={styles.buttonText}>Invitado</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity style={styles.buttonEstudiante}>
+          <Image source={require('./assets/invitado.svg')} style={styles.icon} />
+          <Text style={styles.buttonText}>Estudiante</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity style={styles.buttonDocente}>
+          <Image source={require('./assets/invitado.svg')} style={styles.icon} />
+          <Text style={styles.buttonText}>Docente</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity style={styles.buttonAdmin}>
+          <Image source={require('./assets/invitado.svg')} style={styles.icon} />
+          <Text style={styles.buttonText}>Administrativos</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -62,14 +82,42 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   buttonsContainer: {
-    width: 400,
+    width: 350,
     alignItems: 'center',
 
+
   },
-  button: {
+  buttonEstudiante: {
     width: '80%',
     backgroundColor: '#fff',
-    borderRadius: 10,
+    borderRadius: 25,
+    paddingVertical: 15,
+    marginVertical: 10,
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+  },
+  buttonInvitado: {
+    width: '80%',
+    backgroundColor: '#fff',
+    borderRadius: 25,
+    paddingVertical: 15,
+    marginVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  buttonDocente: {
+    width: '80%',
+    backgroundColor: '#fff',
+    borderRadius: 25,
+    paddingVertical: 15,
+    marginVertical: 10,
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+  },
+  buttonAdmin: {
+    width: '80%',
+    backgroundColor: '#fff',
+    borderRadius: 25,
     paddingVertical: 15,
     marginVertical: 10,
     flexDirection: 'row',
@@ -81,11 +129,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#8B0000',
     textAlignVertical: 'center'
-    
   },
   
 });
