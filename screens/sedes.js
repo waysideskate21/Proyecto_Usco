@@ -10,6 +10,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
+import { CurrentRenderContext } from "@react-navigation/native";
 
 export default function () {
   const [fontsLoaded] = useFonts({
@@ -17,10 +18,10 @@ export default function () {
     MontsItalic: require("../fonts/Montserrat-Italic-VariableFont_wght.ttf"),
   });
   return (
-    <>
+    <View>
       <Header />
       <Body />
-    </>
+    </View>
   );
 }
 
@@ -150,10 +151,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     height: 100,
   },
-  section: {
-    backgroundColor: "#F2EBEC",
-    flexGrow: 1
-  },
+
   title: {
     justifyContent: "center",
     alignItems: "center",
@@ -165,23 +163,28 @@ const styles = StyleSheet.create({
     height: 100,
   },
 
+  section: {
+    backgroundColor: "#F2EBEC",
+    flexGrow: 1
+  },
+
   text_section: {
     alignItems: "center",
   },
 
   text: {
     fontSize: 25,
+    padding:10,
     color: "#4E6470",
     fontWeight: "bold",
     fontFamily: "Montserrat",
-    paddingBottom: 25,
+    justifyContent: 'center',
   },
 
   box: {
     backgroundColor: "white",
-    borderRadius: 40,
-    margin: 15
-
+    borderRadius: 35,
+    margin: 12,
   },
 
   grid: {
@@ -192,11 +195,9 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginBottom: 10,
+    marginBottom: 20,
     padding: 10,
     backgroundColor: "#8B0000",
-    width: "45%",
-    justifyContent: "center",
     alignItems: "center",
     borderRadius: 20,
   },
@@ -205,7 +206,7 @@ const styles = StyleSheet.create({
     width: 120,
     borderRadius: 15,
     resizeMode: "cover",
-    height: 110,
+    height: 100,
   },
 
   buttonText: {
