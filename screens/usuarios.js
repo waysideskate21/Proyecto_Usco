@@ -4,6 +4,10 @@ import { useFonts } from "expo-font";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 export default function Users() {
+  const [fontsLoaded] = useFonts({
+    Montse: require("../fonts/Montserrat-VariableFont_wght.ttf"),
+    MontsItalic: require("../fonts/Montserrat-Italic-VariableFont_wght.ttf"),
+  });
   return (
     <View style={styles.container}>
       <View style={styles.container}>
@@ -17,16 +21,13 @@ export default function Users() {
             style={styles.header_images}
           />
         </View>
-        <View style={styles.title}>
-          <Image
-            source={require("../assets/Title.png")}
-            style={styles.image_title}
-          />
+        <View style={styles.logo1}>
+          <Image source={require("../assets/Title.png")} style={styles.logo} />
         </View>
-        <View style={styles.logo_box}>
+        <View style={styles.logo2}>
           <Image
             source={require("../assets/logo_usco.png")}
-            style={styles.logo}
+            style={styles.logoApp}
           />
         </View>
         <View style={styles.title}>
@@ -40,7 +41,7 @@ export default function Users() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#8D191D",
-    flexGrow: 1
+    flexGrow: 1,
   },
 
   header: {
@@ -56,11 +57,13 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     height: 100,
   },
-
+  logo1: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   title: {
     justifyContent: "center",
     alignItems: "center",
-
   },
   text: {
     fontSize: 25,
@@ -71,16 +74,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  image_title: {
+  logo: {
     width: 350,
     resizeMode: "contain",
     height: 100,
   },
-  logo_box: {
+  logo2: {
     justifyContent: "center",
     alignItems: "center",
   },
-  logo: {
+  logoApp: {
     width: 160,
     resizeMode: "contain",
     height: 140,

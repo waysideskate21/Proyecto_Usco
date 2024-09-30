@@ -12,13 +12,13 @@ import {
 } from "react-native";
 import { CurrentRenderContext } from "@react-navigation/native";
 
-export default function Sedes () {
+export default function Sedes() {
   const [fontsLoaded] = useFonts({
     Montse: require("../fonts/Montserrat-VariableFont_wght.ttf"),
     MontsItalic: require("../fonts/Montserrat-Italic-VariableFont_wght.ttf"),
   });
   return (
-    <View>
+    <View style={styles.section}>
       <Header />
       <Body />
     </View>
@@ -30,7 +30,7 @@ export function Header() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Image
-          source={require("../assets/Escudo_usco.png")}
+          source={require("../assets/Logo_Usedes.png")}
           style={styles.header_images}
         />
         <Image
@@ -136,6 +136,7 @@ export function Body() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#F2EBEC",
+    flexGrow: 1,
   },
 
   header: {
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
   },
 
   header_images: {
-    width: 145,
+    width: 150,
     resizeMode: "contain",
     height: 100,
   },
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
 
   section: {
     backgroundColor: "#F2EBEC",
-    flexGrow: 1
+    flexGrow: 1,
   },
 
   text_section: {
@@ -174,11 +175,11 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: 25,
-    padding:10,
+    padding: 10,
     color: "#4E6470",
     fontWeight: "bold",
     fontFamily: "Montserrat",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
 
   box: {
@@ -191,6 +192,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     flexDirection: "row",
     flexWrap: "wrap",
+
     justifyContent: "space-around",
   },
 
