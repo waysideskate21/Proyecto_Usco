@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { CurrentRenderContext } from "@react-navigation/native";
 
-export default function () {
+export default function Sedes () {
   const [fontsLoaded] = useFonts({
     Montse: require("../fonts/Montserrat-VariableFont_wght.ttf"),
     MontsItalic: require("../fonts/Montserrat-Italic-VariableFont_wght.ttf"),

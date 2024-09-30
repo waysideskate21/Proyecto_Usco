@@ -1,7 +1,8 @@
 import React from "react";
-import Header from "./screens/sedes";
+import Users from "./screens/usuarios";
+import Sedes from "./screens/sedes";
 export default function App() {
   return (
-    <Header/>
+    <Users/>
   )
 }
