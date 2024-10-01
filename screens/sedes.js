@@ -1,22 +1,27 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useCallback } from "react";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
 import { useFonts } from "expo-font";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  SafeAreaView,
-} from "react-native";
-import { CurrentRenderContext } from "@react-navigation/native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 export default function Sedes() {
   const [fontsLoaded] = useFonts({
-    Montse: require("../fonts/Montserrat-VariableFont_wght.ttf"),
-    MontsItalic: require("../fonts/Montserrat-Italic-VariableFont_wght.ttf"),
+    Montserrat: require("../fonts/Montserrat-VariableFont_wght.ttf"),
   });
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, []);
+
+  const onLayout = useCallback(async () => {if (fontsLoaded) { 
+    await SplashScreen.hideAsync();
+  }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) return null;
   return (
     <View style={styles.section}>
       <Header />
@@ -215,6 +220,6 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 20,
     fontWeight: "bold",
-    fontFamily: "MontsItalic",
+    fontFamily: "Montserrat",
   },
 });

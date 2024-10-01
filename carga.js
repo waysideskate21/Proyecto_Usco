@@ -3,34 +3,36 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 export default function Charge() {
+  return <Inicio />;
+}
+
+export function Inicio() {
   return (
     <View style={styles.container}>
-      <Image
-        source={require("./assets/Escudo_usco.png")}
-        style={styles.escudo}
-      />
-      <Text style={styles.title}>GUIDE USco</Text>
+      <Image source={require("./assets/Title.png")} style={styles.title} />
+      <Image source={require("./assets/logo_usco.png")} style={styles.escudo} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: "#8f141b",
     alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
+    justifyContent: "center"
   },
   title: {
-    fontSize: 60,
-    fontWeight: "800",
-    color: "#dfd4a6",
-    textDecorationStyle: 'any'
+    justifyContent: "center",
+    resizeMode: "contain",
+    alignItems: "center",
+    width: 400,
+    height: 100,
+    marginBottom: 20
   },
   escudo: {
-    width: 195,
-    height: 210,
-    marginTop: 15,
+    width: 500,
+    resizeMode: "contain",
+    height: 200,
   },
 });
