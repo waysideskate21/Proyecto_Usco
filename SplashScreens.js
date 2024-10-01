@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
-export default function Charge() {
+export default function Login() {
   return <Inicio />;
 }
 

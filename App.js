@@ -1,10 +1,11 @@
 import React from "react";
-import Users from "./screens/usuarios";
+import Navigation from "./Navigation";
+import Usuarios from "./screens/usuarios";
 import Sedes from "./screens/sedes";
-import Charge from "./carga";
+import Login from "./SplashScreens";
 import { View, ScrollView } from "react-native";
 export default function App() {
   return (
-      <Charge/>
+      <Navigation/>
   );
 }

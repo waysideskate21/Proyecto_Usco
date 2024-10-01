@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/native";
 import React, { useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
@@ -63,11 +63,13 @@ export function Header() {
   );
 }
 export function Body() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.section}>
       <View style={styles.grid}>
         {/* caja */}
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(Usuarios)}>
           <View style={styles.image_box}>
             <Image
               source={require("../assets/invitado.png")}
