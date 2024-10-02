@@ -3,11 +3,19 @@ import React, { useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from "react-native";
 export default function Usuarios() {
+  //Fuentes
   const [fontsLoaded] = useFonts({
     Montserrat: require("../fonts/Montserrat-VariableFont_wght.ttf"),
+    //Fin fuentes
   });
   useEffect(() => {
     async function prepare() {
@@ -25,14 +33,16 @@ export default function Usuarios() {
   if (!fontsLoaded) return null;
 
   return (
-    <View style={styles.container} onLayout={onLayout}>
-      <Header />
-      <Body />
-    </View>
+    <ScrollView style={styles.container}>
+      <View style={styles.container} onLayout={onLayout}>
+        <Header />
+        <Body />
+      </View>
+    </ScrollView>
   );
 }
 
-export function Header() {
+function Header() {
   return (
     <View style={styles.container}>
       <View style={styles.container}>
@@ -62,14 +72,17 @@ export function Header() {
     </View>
   );
 }
-export function Body() {
+function Body() {
   const navigation = useNavigation();
 
   return (
     <View style={styles.section}>
       <View style={styles.grid}>
         {/* caja */}
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(Usuarios)}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Sedes")}
+        >
           <View style={styles.image_box}>
             <Image
               source={require("../assets/invitado.png")}
@@ -81,7 +94,10 @@ export function Body() {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Sedes")}
+        >
           <View style={styles.image_box}>
             <Image
               source={require("../assets/estudiante.png")}
@@ -93,7 +109,10 @@ export function Body() {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Sedes")}
+        >
           <View style={styles.image_box}>
             <Image
               source={require("../assets/Maestro.png")}
@@ -105,7 +124,10 @@ export function Body() {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Sedes")}
+        >
           <View style={styles.image_box}>
             <Image
               source={require("../assets/Trabajador.png")}
@@ -149,8 +171,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
+    paddingTop: 20,
     fontSize: 25,
-    padding: 10,
     color: "#ffffff",
     fontWeight: "bold",
     fontFamily: "Montserrat",
@@ -173,19 +195,19 @@ const styles = StyleSheet.create({
   },
   section: {
     flexGrow: 1,
+    marginTop: 15,
   },
   box: {
     backgroundColor: "white",
     borderRadius: 35,
-    margin: 12,
   },
 
   grid: {
     alignItems: "flex-start",
     flexDirection: "row",
     flexWrap: "wrap",
-
     justifyContent: "space-around",
+    margin: 10,
   },
 
   button: {

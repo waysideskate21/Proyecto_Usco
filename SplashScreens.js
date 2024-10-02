@@ -1,17 +1,23 @@
 import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
 
 export default function Login() {
   return <Inicio />;
 }
 
-export function Inicio() {
+function Inicio() {
+  const navigation = useNavigation();
   return (
-    <View style={styles.container}>
-      <Image source={require("./assets/Title.png")} style={styles.title} />
-      <Image source={require("./assets/logo_usco.png")} style={styles.escudo} />
-    </View>
+      <TouchableOpacity onPress={() => navigation.navigate("usuarios")} style={styles.container}>
+        <Image source={require("./assets/Title.png")} style={styles.title} />
+        <Image
+          source={require("./assets/logo_usco.png")}
+          style={styles.escudo}
+        />
+      </TouchableOpacity>
+
   );
 }
 
@@ -19,20 +25,21 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: "#8f141b",
-    alignItems: "center",
-    justifyContent: "center"
+    justifyContent: 'center',
+    alignItems: "center"
   },
   title: {
     justifyContent: "center",
     resizeMode: "contain",
     alignItems: "center",
-    width: 400,
+    width: 320,
     height: 100,
-    marginBottom: 20
   },
   escudo: {
     width: 500,
     resizeMode: "contain",
+    alignContent: "center",
+    justifyContent: "center",
     height: 200,
   },
 });

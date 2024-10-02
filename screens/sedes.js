@@ -1,11 +1,20 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useCallback } from "react";
+import { useNavigation } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from "react-native";
 
 export default function Sedes() {
+  //Fuentes
+
   const [fontsLoaded] = useFonts({
     Montserrat: require("../fonts/Montserrat-VariableFont_wght.ttf"),
   });
@@ -16,21 +25,24 @@ export default function Sedes() {
     prepare();
   }, []);
 
-  const onLayout = useCallback(async () => {if (fontsLoaded) { 
-    await SplashScreen.hideAsync();
-  }
+  const onLayout = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
   }, [fontsLoaded]);
 
   if (!fontsLoaded) return null;
   return (
-    <View style={styles.section}>
-      <Header />
-      <Body />
-    </View>
+    <ScrollView>
+      <View style={styles.section}>
+        <Header />
+        <Body />
+      </View>
+    </ScrollView>
   );
 }
 
-export function Header() {
+function Header() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -52,7 +64,9 @@ export function Header() {
     </View>
   );
 }
-export function Body() {
+function Body() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.section}>
       <View style={styles.box}>
@@ -61,7 +75,7 @@ export function Body() {
         </View>
         <View style={styles.grid}>
           {/* caja */}
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Mapscreen")}>
             <View style={styles.image_box}>
               <Image
                 source={require("../assets/Sede_Principal.jpeg")}
@@ -139,9 +153,9 @@ export function Body() {
 }
 
 const styles = StyleSheet.create({
+
   container: {
     backgroundColor: "#F2EBEC",
-    flexGrow: 1,
   },
 
   header: {

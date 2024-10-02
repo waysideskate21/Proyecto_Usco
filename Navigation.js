@@ -1,36 +1,85 @@
 import React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 //Screens
 import Usuarios from "./screens/usuarios";
 import Sedes from "./screens/sedes";
-const Tab = createBottomTabNavigator();
+import Login from "./SplashScreens";
+import MapScreen from "./screens/ToolMap";
 
-function MyTabs() {
+//Constantes
+const bottom = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+function MainStack() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name="Users"
+    <Stack.Navigator>
+        <Stack.Screen
+        name="SplashScreen"
+        component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="usuarios"
         component={Usuarios}
         options={{
           headerShown: false,
         }}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="Sedes"
         component={Sedes}
         options={{
           headerShown: false,
         }}
       />
-    </Tab.Navigator>
+            <Stack.Screen
+        name="Mapscreen"
+        component={MapScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function MainBottom() {
+  return (
+    <bottom.Navigator>
+      <bottom.Screen
+        name="Users"
+        component={Usuarios}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <bottom.Screen
+        name="Sedes"
+        component={Sedes}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </bottom.Navigator>
   );
 }
 
 export default function Navigation() {
   return (
     <NavigationContainer>
-      <MyTabs />
+      <MainStack/>
     </NavigationContainer>
   );
+}
+
+export function BottomNav () {
+    return (
+        <NavigationContainer>
+            <MainBottom/>
+        </NavigationContainer>
+    )
 }
