@@ -1,4 +1,6 @@
 import react from "react";
+import { useNavigation } from "@react-navigation/native";
+
 import {
   Text,
   View,
@@ -17,6 +19,7 @@ export default function MapScreen() {
 }
 
 function Header() {
+  const navigation = useNavigation();
   return (
     <View style={styles.header}>
       <View style={styles.title}>
@@ -32,10 +35,8 @@ function Header() {
 const styles = StyleSheet.create({
   Container: {
     backgroundColor: "#F2EBEC",
-
   },
-  header: {
-  },
+  header: {},
 
   title: {
     width: 350,

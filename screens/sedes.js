@@ -3,6 +3,8 @@ import { useNavigation } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
+
+import { useIsFocused } from "@react-navigation/native";
 import {
   StyleSheet,
   Text,
@@ -75,7 +77,10 @@ function Body() {
         </View>
         <View style={styles.grid}>
           {/* caja */}
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Mapscreen")}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("guia")}
+          >
             <View style={styles.image_box}>
               <Image
                 source={require("../assets/Sede_Principal.jpeg")}
@@ -99,7 +104,10 @@ function Body() {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("Init")}
+          >
             <View style={styles.image_box}>
               <Image
                 source={require("../assets/Sede_Garzon.jpeg")}
@@ -153,7 +161,6 @@ function Body() {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     backgroundColor: "#F2EBEC",
   },

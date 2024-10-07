@@ -7,6 +7,9 @@ import Usuarios from "./screens/usuarios";
 import Sedes from "./screens/sedes";
 import Login from "./SplashScreens";
 import MapScreen from "./screens/ToolMap";
+import principal from "./screens/principal";
+import Guide from "./screens/guia";
+import Princ from "./screens/principal";
 
 //Constantes
 const bottom = createBottomTabNavigator();
@@ -43,6 +46,25 @@ function MainStack() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="principal"
+        component={principal}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="guia"
+        component={Guide}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen name="Init"
+      component={Princ}
+      options={{
+        headerShown: false}
+        }/>
     </Stack.Navigator>
   );
 }
