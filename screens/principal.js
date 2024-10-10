@@ -1,169 +1,350 @@
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native';
+import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useFonts } from "expo-font";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  ScrollView,
+  ImageBackground,
+} from "react-native";
 
-export default function Princ() {
-    const navigation = useNavigation();
+export default function Guide() {
+  const [fontsLoaded] = useFonts({
+    Montserrat: require("../fonts/Montserrat-VariableFont_wght.ttf"),
+  });
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.menuIcon}>
-          <Image source={require('../assets/logo_usco.png')} style={styles.icon} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Guide Usco</Text>
-        <TouchableOpacity style={styles.profileIcon}>
-          <Image source={require('../assets/betty.png')} style={styles.usuario} />
-        </TouchableOpacity>
-      </View>
-
-      {/* Main Image */}
-        <TouchableOpacity style={styles.menuIcon} onPress={() => navigation.navigate("guia")}>
-            <Image source={require('../assets/botonMain.png')} style={styles.mainImage} />
-            <Text style={styles.mainText}>¿A donde quieres ir?</Text>
-        </TouchableOpacity>
-      
-      
-
-      {/* Filters */}
-      <ScrollView horizontal contentContainerStyle={styles.filters} showsHorizontalScrollIndicator={false}>
-        <TouchableOpacity style={styles.filterButton}>
-        <Image source={require('../assets/bloqueCentral.png')} style={styles.botonTodo} />
-          <Text style={styles.filterText}>TODO</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.filterButton}>
-        <Image source={require('../assets/botonOficinas.png')} style={styles.botonOficinas} />
-          <Text style={styles.filterText}>Oficinas</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.filterButton}>
-        <Image source={require('../assets/botonAulas.png')} style={styles.botonAulas} />
-          <Text style={styles.filterText}>Aulas</Text>
-        </TouchableOpacity>
-      </ScrollView>
-
-      {/* Locations */}
-      <View style={styles.grid}>
-        {[
-          { name: "Bloque Educación", campus: "Central", image: require('../assets/bloqueCentral.png') },
-          { name: "Ágoras", campus: "Central", image: require('../assets/agoras.png') },
-          { name: "Oficinas Planeación", campus: "Planeación", image: require('../assets/planeacion.png') },
-          { name: "IleUsco", campus: "Central", image: require('../assets/ileusco.png') },
-          { name: "Aulas Bloque", campus: "Central", image: require('../assets/aulasCentral.png') },
-          { name: "Bienestar", campus: "Central", image: require('../assets/bienestar.png') },
-        ].map((location, index) => (
-          <TouchableOpacity key={index} style={styles.locationCard}>
-            <Image source={location.image} style={styles.locationImage} />
-            <Text style={styles.locationTitle}>{location.name}</Text>
-            <Text style={styles.locationSubtitle}>{location.campus}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+    <ScrollView style={styles.body}>
+      <Head />
+      <Inputs />
+      <Sectionsite />
+      <Filters />
+      <Campus />
     </ScrollView>
   );
 }
 
+const Head = () => {
+  return (
+    <View style={styles.head}>
+      <View style={styles.IconsHeader}>
+        <Image
+          source={require("../assets/Logo_Usuario.png")}
+          style={styles.icon}
+        />
+      </View>
+      <View style={styles.IconsHeader}>
+        <Image source={require("../assets/Title.png")} style={styles.TitleI} />
+      </View>
+    </View>
+  );
+};
+
+const Inputs = () => {
+  return (
+    <View style={styles.searchSection}>
+      <View style={styles.SectionSearch}>
+        <View style={styles.searchBar}>
+          <TextInput
+            style={styles.inputSection}
+            placeholder="Buscar sitio en la U"
+            placeholderTextColor="#999"
+          />
+          <Icon name={"map-marker"} style={styles.iconInput} />
+          <View style={styles.iconPlaceholder} />
+        </View>
+      </View>
+    </View>
+  );
+};
+const Sectionsite = () => {
+  return (
+    <View style={styles.Section}>
+      <View style={styles.containerImg}>
+        <ImageBackground
+          source={require("../assets/Sede_Principal.jpeg")}
+          style={styles.SectionImg}
+        >
+          <Text style={styles.SecText}>¿A donde quieres ir?</Text>
+        </ImageBackground>
+      </View>
+    </View>
+  );
+};
+
+const Filters = () => {
+  return (
+    <ScrollView
+      horizontal
+      contentContainerStyle={styles.filters}
+      showsHorizontalScrollIndicator={false}
+    >
+      <TouchableOpacity style={styles.ffilterButton}>
+        <Image
+          source={require("../assets/CentralB.png")}
+          style={styles.filtersimg}
+        />
+        <Text style={styles.ffilterText}>TODO</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.filterButton}>
+        <Image
+          source={require("../assets/oficinas.jpg")}
+          style={styles.filtersimg}
+        />
+        <Text style={styles.filterText}>Oficinas</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.filterButton}>
+        <Image
+          source={require("../assets/salones.jpg")}
+          style={styles.filtersimg}
+        />
+        <Text style={styles.filterText}>Aulas</Text>
+      </TouchableOpacity>
+    </ScrollView>
+  );
+};
+
+const Campus = () => {
+  return (
+    <View style={styles.grid}>
+      {[
+        {
+          name: "Bloque Educación",
+          campus: "Central",
+          image: require("../assets/CentralB.png"),
+        },
+        {
+          name: "Ágoras",
+          campus: "Central",
+          image: require("../assets/agoras.jpg"),
+        },
+        {
+          name: "Oficinas Planeación",
+          campus: "Planeación",
+          image: require("../assets/Sede_Postgrados.jpg"),
+        },
+        {
+          name: "IleUsco",
+          campus: "Central",
+          image: require("../assets/bloques.jpeg"),
+        },
+        {
+          name: "Aulas Bloque",
+          campus: "Central",
+          image: require("../assets/salones.jpg"),
+        },
+        {
+          name: "Bienestar",
+          campus: "Central",
+          image: require("../assets/bienestar.jpg"),
+        },
+      ].map((location, index) => (
+        <TouchableOpacity key={index} style={styles.locationCard}>
+          <Image source={location.image} style={styles.locationImage} />
+          <Text style={styles.locationTitle}>{location.name}</Text>
+          <Text style={styles.locationSubtitle}>{location.campus}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
+};
 const styles = StyleSheet.create({
-  container: {
+  // Head
+  body: {
     flexGrow: 1,
-    backgroundColor: '#8B0000',
-    alignItems: 'center',
-    padding: 10,
+    backgroundColor: "#8D191D",
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    marginVertical: 10,
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  menuIcon: {
-    padding: 10,
-  },
-  profileIcon: {
-    padding: 10,
+  head: {
+    flexWrap: "wrap",
+    flexDirection: "row",
+    marginTop: 30,
+    marginLeft: 15,
+    marginRight: 15,
+    justifyContent: "space-between",
   },
   icon: {
-    width: 30,
-    height: 30,
+    width: 150,
+    height: 55,
+    resizeMode: "contain",
   },
-  input: {
-    flex: 1,
-    height: 40,
-    color: '#000',
+  TitleI: {
+    width: 150,
+    height: 55,
+    resizeMode: "contain",
   },
-  searchIcon: {
-    padding: 10,
+  // Fin Head
+  // Section Image
+  Section: {
+    justifyContent: "center",
+    flexDirection: "row",
   },
-  mainImage: {
-    width: 260,
-    height: 100,
+  containerImg: {
+    justifyContent: "center",
+    marginTop: 10,
+    width: "80%",
     borderRadius: 10,
+  },
+  SectionImg: {
+    width: "100%",
+    height: 140,
+    textAlign: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    borderRadius: 15,
+  },
+  SecText: {
+    fontFamily: "Montserrat",
+    textShadowColor: "red",
+    textShadowRadius: 3,
+    textShadowOffset: { width: 0, height: 0 },
+    color: "white",
+    fontSize: 15,
+    lineHeight: 84,
+    fontWeight: "bold",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  // Fin Section Image
+  // Inputs
+  searchSection: {
+    marginTop: 10,
+  },
+  searchSection2: {
+    marginTop: 15,
+  },
+  SectionSearch: {
+    marginLeft: 30,
+    alignContent: "center",
+    marginRight: 30,
+    marginTop: 5,
+    marginBottom: 10,
+    justifyContent: "center",
+  },
+  searchTitle: {
+    width: "70%",
+    color: "white",
+    fontSize: 25,
+    fontFamily: "Montserrat",
+    fontWeight: "bold",
     marginBottom: 15,
+    textShadowColor: "black",
+    textShadowRadius: 3,
+    textShadowOffset: { width: 0, height: 0 },
   },
-  mainText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 15,
-    justifyContent: 'center',
+  searchBar: {
+    height: 50,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 10,
   },
-  filters: {
-    flexDirection: 'row',
-    marginBottom: 20,
-  },
-  filterButton: {
-    backgroundColor: '#fff',
-    paddingVertical: 5,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    marginHorizontal: 5,
-  },
-  filterText: {
+  inputSection: {
+    flexGrow: 1,
+    marginLeft: 15,
     fontSize: 16,
-    color: '#8B0000',
+    alignItems: "center",
+    fontWeight: "bold",
+    fontFamily: "Montserrat",
+  },
+  iconPlaceholder: {
+    width: 20,
+  },
+  //Fin inputs
+
+  // Inicio Campus
+  sectionTitle: {
+    fontSize: 22,
+    fontFamily: "Montserrat",
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 15,
+    textAlign: "center",
+    textShadowColor: "black",
+    textShadowRadius: 3,
+    textShadowOffset: { width: 0, height: 0 },
   },
   grid: {
-    width: '100%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
   },
   locationCard: {
-    backgroundColor: '#fff',
-    width: '45%',
+    backgroundColor: "#fff",
+    width: "45%",
     marginBottom: 20,
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
     padding: 10,
   },
   locationImage: {
-    width: '100%',
+    width: "100%",
     height: 100,
     borderRadius: 10,
     marginBottom: 10,
   },
   locationTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#8B0000',
+    fontFamily: "Montserrat",
+    fontWeight: "bold",
+    color: "8D191D",
+    textAlign: "center",
   },
-  locationSubtitle: {
-    fontSize: 14,
-    color: '#8B0000',
+  // Fin Campus
+
+  // Filters
+
+  filters: {
+    marginTop: 15,
+    marginLeft: 30,
+    marginRight: 30,
+    marginBottom: 15,
+    flexDirection: "row",
+    flexGrow: 1,
+    justifyContent: "center",
   },
-  usuario:{
-    borderRadius: 30,
-    width: 30,
-    height: 30,
+  filterButton: {
+    flexDirection: "row",
+    height: "90%",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 20,
+    marginRight: 5,
+    marginLeft: 5,
   },
-  botonTodo:{
-    
+  filtersimg: {
+    resizeMode: "contain",
+    width: 70,
+    borderRadius: 20,
+    overflow: "hidden",
+    height: 70,
+    margin: 8,
   },
+  filterText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "Montserrat",
+    color: "black",
+    margin: 8,
+  },
+  ffilterButton: {
+    flexDirection: "row",
+    height: "90%",
+    alignItems: "center",
+    backgroundColor: "black",
+    borderRadius: 20,
+    marginRight: 5,
+    marginLeft: 5,
+  },
+  ffilterText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "Montserrat",
+    color: "white",
+    margin: 8,
+  },
+  // Fin Filters
 });
-
-

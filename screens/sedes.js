@@ -4,7 +4,6 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
 
-import { useIsFocused } from "@react-navigation/native";
 import {
   StyleSheet,
   Text,
