@@ -43,7 +43,7 @@ export default function Sedes() {
   );
 }
 
-function Header() {
+const Header = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -65,7 +65,7 @@ function Header() {
     </View>
   );
 }
-function Body() {
+const Body =() => {
   const navigation = useNavigation();
 
   return (

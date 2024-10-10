@@ -42,7 +42,7 @@ export default function Usuarios() {
   );
 }
 
-function Header() {
+const Header = () => {
   return (
     <View style={styles.container}>
       <View style={styles.container}>
@@ -71,8 +71,8 @@ function Header() {
       </View>
     </View>
   );
-}
-function Body() {
+};
+const Body =() => {
   const navigation = useNavigation();
 
   return (
