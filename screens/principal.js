@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useFonts } from "expo-font";
 import {
@@ -190,7 +189,7 @@ const styles = StyleSheet.create({
   },
   SectionImg: {
     width: "100%",
-    height: 140,
+    height: 190,
     textAlign: "center",
     justifyContent: "center",
     overflow: "hidden",
