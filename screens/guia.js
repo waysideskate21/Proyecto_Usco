@@ -56,24 +56,59 @@ export const useBlinkingAnimation = (condition) => {
   return blinkingAnimation;
 };
 
-const Head = ({ currentImage2 }) => {
+export const Head = ({ currentImage2 }) => {
   const blinkingAnimation = useBlinkingAnimation(!currentImage2);
   const [isModalVisible, setisModalVisible] = useState(false);
   const questionIconColor = currentImage2 ? "#D8CEA3" : "#D8CEA3";
 
   const getModalContent = () => {
     switch (currentImage2) {
-      case "Salon M":
-        return <Text>Este es el contenido del Salon M.</Text>;
+      case "Biblioteca":
+        return (
+          <View style={styles.bodyModal}>
+            <View style={styles.TitleModal}>
+              <Text style={styles.TitleM}>Esta es la biblioteca</Text>
+            </View>
+          </View>
+        );
         break;
       case "Laboratorio Biologia":
-        return <Text>Este es el contenido del Laboratorio de Biología.</Text>;
+        return (
+          <View style={styles.bodyModal}>
+            <View style={styles.TitleModal}>
+              <Text style={styles.TitleM}>Esta es el Laboratio de biologia</Text>
+            </View>
+          </View>
+        );
         break;
       case "Salon Saya":
-        return <Text>Este es el contenido del Salon Saya.</Text>;
+        return (
+          <View style={styles.bodyModal}>
+            <View style={styles.TitleModal}>
+              <Text style={styles.TitleM}>Esta es el Salon Saya</Text>
+            </View>
+          </View>
+        );
+        break;
+      case "Salud":
+        return (
+          <View style={styles.bodyModal}>
+            <View style={styles.TitleModal}>
+              <Text style={styles.TitleM}>Esta es Salud</Text>
+            </View>
+          </View>
+        );
+        break;
+      case "Salon M":
+        return (
+          <View style={styles.bodyModal}>
+            <View style={styles.TitleModal}>
+              <Text style={styles.TitleM}>Esta es el Salon M</Text>
+            </View>
+          </View>
+        );
         break;
       default:
-        break;
     }
   };
   return (
@@ -102,12 +137,12 @@ const Head = ({ currentImage2 }) => {
         animationType="fade"
       >
         <View style={styles.backgroundModal}>
-          <TouchableOpacity onPress={() => setisModalVisible(false)}>
-            <View>
-              <Text>Volver</Text>
-            </View>
-          </TouchableOpacity>
-          {getModalContent()}
+          <View style={styles.HeaderModal}>
+            <TouchableOpacity onPress={() => setisModalVisible(false)}>
+              <Text style={styles.bottonback}>Volver</Text>
+            </TouchableOpacity>
+          </View>
+          <View>{getModalContent()}</View>
         </View>
       </Modal>
     </View>
@@ -129,43 +164,7 @@ const Sectionsite = () => {
   );
 };
 
-// const Inputs = () => {
-//   return (
-//     <View style={styles.searchSection}>
-//       <View style={styles.SectionSearch}>
-//         <Text style={styles.searchTitle}>¿En dónde estás?</Text>
-//         <View style={styles.searchBar}>
-//           <TextInput
-//             style={styles.inputSection}
-//             placeholder="Buscar sitio en la U"
-//             placeholderTextColor="#999"
-//           />
-//           <Icon name={"map-marker"} style={styles.iconInput} />
-//           <View style={styles.iconPlaceholder} />
-//         </View>
-//       </View>
-//       <View style={styles.searchSection2}>
-//         <View style={styles.SectionSearch}>
-//           <Text style={styles.searchTitle}>¿A donde vas?</Text>
-//           <View style={styles.searchBar}>
-//             <TextInput
-//               style={styles.inputSection}
-//               placeholder="Buscar sitio en la U"
-//               placeholderTextColor="#999"
-//             />
-//             <Icon name={"run-fast"} style={styles.iconInput} />
-//             <View style={styles.iconPlaceholder} />
-//           </View>
-//         </View>
-//       </View>
-//     </View>
-//   );
-// };
-
 const MapSelection = ({ setcurrentImage2 }) => {
-  const [selectedEntrada, setSelectedEntrada] = useState(null);
-  const [selectedAOA, setSelectedAOA] = useState(null);
-
   // Una sola función de selección
   const seleccionarOpcion = (tipo, item) => {
     if (tipo === "entrada") {
@@ -173,33 +172,55 @@ const MapSelection = ({ setcurrentImage2 }) => {
     } else if (tipo === "aoa") {
       setSelectedAOA(item);
       setcurrentImage2(item.titulo); // Actualizamos currentImage2
-
     }
   };
 
   // Primera Lista
   const [listaExpandida, setListaExpandida] = useState(false);
+  const [selectedEntrada, setSelectedEntrada] = useState(null); // Guarda la selección de la primera lista
 
   // Fin Primera
   // Segunda Lista
   const [listaExpandida2, setListaExpandida2] = useState(false);
+  const [selectedAOA, setSelectedAOA] = useState(null); // Guarda la selección de la segunda lista
+  const [staticImage, setStaticImage] = useState(null); // Imagen estática para la lista 2
+  const [overlayImage, setOverlayImage] = useState(null); // Imagen superpuesta
 
   // Fin Segunda Lista
   const entradas = [
-    { id: "1", titulo: "Entrada Artes", imagen: require("../assets/icon.png") },
     {
-      id: "2",
+      id: "1",
       titulo: "Entrada Bienestar",
       imagen: require("../assets/EntradaBienestar.png"),
+      imagenEstatica: require("../assets/PlanoBiens.png"),
     },
+    // Para futuras entradas repetir el mismo detallado y asignar la imagen estatica que estara en el segundo mapa
   ];
   const AOABienestar = [
-    { id: "1", titulo: "Salon M", imagen: require("../assets/SalonM.png") },
-    { id: "2", titulo: "Salon Saya", imagen: require("../assets/LabSa.png") },
+    {
+      id: "1",
+      titulo: "Salon Saya",
+      imagen: require("../assets/Saya_Line.png"),
+    },
+    {
+      id: "2",
+      titulo: "Laboratorio Biologia",
+      imagen: require("../assets/Laboratorio_line.png"),
+    },
     {
       id: "3",
-      titulo: "Laboratorio Biologia",
-      imagen: require("../assets/Laboratorio.png"),
+      titulo: "Biblioteca",
+      imagen: require("../assets/Biblioteca_line.png"),
+    },
+    {
+      id: "4",
+      titulo: "Salud",
+      imagen: require("../assets/Salud_line.png"),
+    },
+    {
+      id: "5",
+      titulo: "Salon M",
+      imagen: require("../assets/Salon_M.png"),
     },
   ];
 
@@ -212,14 +233,19 @@ const MapSelection = ({ setcurrentImage2 }) => {
   };
 
   // Función que maneja la selección de una opción para la PRIMERA lista
-  const seleccionarOpcion1 = (titulo, imagen) => {
+  const seleccionarOpcion1 = (item) => {
+    setSelectedEntrada(item);
     setListaExpandida(false); // Colapsa la lista después de seleccionar una opción
+    setStaticImage(item.imagenEstatica);
+    setOverlayImage(null);
   };
 
   // Función que maneja la selección de una opción para la SEGUNDA lista
-  const seleccionarOpcion2 = (titulo, imagen) => {
-    setcurrentImage2(titulo);
+  const seleccionarOpcion2 = (item) => {
+    setcurrentImage2(item.titulo);
+    setSelectedAOA(item);
     setListaExpandida2(false);
+    setOverlayImage(item.imagen);
   };
   return (
     <View>
@@ -227,7 +253,7 @@ const MapSelection = ({ setcurrentImage2 }) => {
       <View style={styles.SelectionContainer}>
         <View style={styles.boton}>
           <TouchableOpacity onPress={toggleLista}>
-            <View>
+            <View style={styles.botonlist}>
               <Text style={styles.botonTexto}>
                 {listaExpandida
                   ? "Selecciona una opción"
@@ -245,7 +271,8 @@ const MapSelection = ({ setcurrentImage2 }) => {
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <TouchableOpacity
-                  onPress={() => seleccionarOpcion("entrada", item)}
+                  style={styles.botFla}
+                  onPress={() => seleccionarOpcion1(item)}
                 >
                   <Text style={styles.opcion}>{item.titulo}</Text>
                 </TouchableOpacity>
@@ -255,53 +282,66 @@ const MapSelection = ({ setcurrentImage2 }) => {
         </View>
         <View style={styles.image_content}>
           {selectedEntrada && (
-            <Image source={selectedEntrada.imagen} style={styles.imagenFlist} />
-          )}
-        </View>
-        {/* Mostrar la imagen seleccionada */}
-      </View>
-
-      {/* Segundo bloque (nuevo) */}
-      <View style={styles.SelectionContainer2}>
-        <View style={styles.boton}>
-          <TouchableOpacity onPress={toggleLista2}>
-            <View>
-              <Text style={styles.botonTexto}>
-                {listaExpandida2
-                  ? "Selecciona otra opción"
-                  : selectedAOA
-                  ? selectedAOA.titulo
-                  : "¿A donde vas?"}
-              </Text>
-            </View>
-          </TouchableOpacity>
-
-          {/* Lista expandida si se toca el botón */}
-          {listaExpandida2 && (
-            <FlatList
-              data={AOABienestar}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  onPress={() => seleccionarOpcion("aoa", item)}
-                >
-                  <Text style={styles.opcion}>{item.titulo}</Text>
-                </TouchableOpacity>
-              )}
+            <Image
+              source={selectedEntrada.imagen}
+              style={styles.imagenFlist1}
             />
           )}
         </View>
-        <View style={styles.image_content}>
-          {selectedAOA && (
-            <Image source={selectedAOA.imagen} style={styles.imagenFlist} />
-          )}
-          <Text style={styles.TextSuper}>*</Text>
-        </View>
-
       </View>
+      {/* Segundo bloque */}
+      {selectedEntrada && (
+        <View style={styles.SelectionContainer2}>
+          <View style={styles.boton}>
+            <TouchableOpacity onPress={toggleLista2}>
+              <View style={styles.botonlist}>
+                <Text style={styles.botonTexto}>
+                  {listaExpandida2
+                    ? "Selecciona otra opción"
+                    : selectedAOA
+                    ? selectedAOA.titulo
+                    : "¿A donde vas?"}
+                </Text>
+              </View>
+            </TouchableOpacity>
+
+            {/* Lista expandida si se toca el botón */}
+            {listaExpandida2 && (
+              <FlatList
+                data={AOABienestar}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={styles.botFla}
+                    onPress={() => seleccionarOpcion2(item)} // Cambiado aquí
+                  >
+                    <View style={styles.botFla}>
+                      <Text style={styles.opcion}>{item.titulo}</Text>
+                    </View>
+                  </TouchableOpacity>
+                )}
+              />
+            )}
+          </View>
+
+          {/* Mostrar las imágenes en la segunda lista */}
+          <View style={styles.image_content}>
+            {staticImage && (
+              <Image source={staticImage} style={styles.imagenFlist} /> // Imagen estática
+            )}
+            {overlayImage && (
+              <Image
+                source={overlayImage}
+                style={[styles.imagenFlist, styles.overlayImage]}
+              /> // Imagen superpuesta
+            )}
+          </View>
+        </View>
+      )}
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   // Head
   body: {
@@ -376,10 +416,18 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginLeft: 30,
     marginRight: 30,
+    marginTop: 20,
   },
   image_content: {
     justifyContent: "center",
     alignItems: "center",
+    position: "relative",
+  },
+  imagenFlist1: {
+    marginTop: 10,
+    width: "100%",
+    height: 185,
+    resizeMode: "contain",
   },
   imagenFlist: {
     marginTop: 10,
@@ -390,68 +438,80 @@ const styles = StyleSheet.create({
   boton: {
     marginTop: 30,
   },
-  botonTexto: {
-    padding: 8,
-    color: "black",
-    fontSize: 18,
+
+  botonlist: {
+    height: 45,
+    borderTopStartRadius: 10,
+    borderTopEndRadius: 10,
     borderWidth: 1,
-    fontWeight: "bold",
+    alignItems: "center",
+    flexDirection: "row",
     backgroundColor: "white",
+  },
+  botonTexto: {
+    color: "black",
+    paddingLeft: 10,
+    fontSize: 18,
+    alignContent: "center",
+    fontWeight: "bold",
     fontFamily: "Montserrat",
   },
   opcion: {
-    padding: 8,
+    alignContent: "center",
+    textAlignVertical: "center",
+    height: 45,
+    paddingLeft: 10,
     fontSize: 18,
     fontFamily: "Montserrat",
     fontWeight: "bold",
-    backgroundColor: "white",
     borderWidth: 1,
   },
 
-  // Fin Section Image
-  // // Inputs
-  // searchSection: {
-  //   marginTop: 25,
-  // },
-  // searchSection2: {
-  //   marginTop: 15,
-  // },
-  // SectionSearch: {
-  //   marginLeft: 30,
-  //   alignContent: "center",
-  //   marginRight: 30,
-  //   marginTop: 5,
-  //   marginBottom: 10,
-  //   justifyContent: "center",
-  // },
-  // searchTitle: {
-  //   width: "70%",
-  //   color: "white",
-  //   fontSize: 25,
-  //   fontFamily: "Montserrat",
-  //   fontWeight: "bold",
-  //   marginBottom: 15,
-  //   textShadowColor: "black",
-  //   textShadowRadius: 3,
-  //   textShadowOffset: { width: 0, height: 0 },
-  // },
-  // searchBar: {
-  //   height: 50,
-  //   flexDirection: "row",
-  //   alignItems: "center",
-  //   backgroundColor: "white",
-  //   borderRadius: 10,
-  // },
-  // inputSection: {
-  //   flexGrow: 1,
-  //   marginLeft: 15,
-  //   fontSize: 16,
-  //   alignItems: "center",
-  //   fontWeight: "bold",
-  //   fontFamily: "Montserrat",
-  // },
-  // iconPlaceholder: {
-  //   width: 20,
-  // },
-  //Fin inputs
+  botFla: {
+    alignContent: "center",
+    backgroundColor: "white",
+  },
+
+  overlayImage: {
+    position: "absolute", // Superpone la imagen en el contenedor
+    top: 0,
+    left: 0,
+    width: "100%", // Asegura que la imagen se superponga correctamente
+    height: 180, // Igual que la imagen estática para que coincidan
+    resizeMode: "stretch",
+  },
+
+  backgroundModal: {
+    backgroundColor: "#8D191D",
+    flexGrow: 1,
+  },
+  HeaderModal: {
+    flexDirection: "row",
+    borderWidth: 1,
+    width: "23%",
+    height: "5%",
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#D8CEA3",
+  },
+  bottonback: {
+    fontSize: 18,
+    fontFamily: "Montserrat",
+    fontWeight: "bold",
+  },
+
+  TitleModal: {},
+  TitleM: {
+    fontFamily: "Montserrat",
+    fontSize: 30,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+
+  bodyModal: {
+    backgroundColor: "pink",
+    marginLeft: 20,
+    marginRight: 20,
+  },
 });
