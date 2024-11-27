@@ -74,7 +74,6 @@ const Sectionsite = () => {
     </View>
   );
 };
-
 const Filters = () => {
   return (
     <ScrollView

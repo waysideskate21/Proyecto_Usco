@@ -18,11 +18,16 @@ export default function Guide() {
     Montserrat: require("../fonts/Montserrat-VariableFont_wght.ttf"),
   });
   const [currentImage2, setcurrentImage2] = useState(null);
+  const [selectedImages, setSelectedImages] = useState([]); // Estado para almacenar las imágenes seleccionadas
+
   return (
     <View style={styles.body}>
-      <Head currentImage2={currentImage2} />
+      <Head currentImage2={currentImage2} selectedImages={selectedImages} />
       <Sectionsite />
-      <MapSelection setcurrentImage2={setcurrentImage2} />
+      <MapSelection
+        setcurrentImage2={setcurrentImage2}
+        setSelectedImages={setSelectedImages}
+      />
     </View>
   );
 }
@@ -56,18 +61,61 @@ export const useBlinkingAnimation = (condition) => {
   return blinkingAnimation;
 };
 
-export const Head = ({ currentImage2 }) => {
+export const Head = ({ currentImage2, selectedImages }) => {
   const blinkingAnimation = useBlinkingAnimation(!currentImage2);
   const [isModalVisible, setisModalVisible] = useState(false);
   const questionIconColor = currentImage2 ? "#D8CEA3" : "#D8CEA3";
 
   const getModalContent = () => {
+    if (!currentImage2) {
+      return (
+        <View style={styles.bodyModal}>
+          <Text style={styles.TitleM}>Bienvenido a la guía de ubicaciones</Text>
+          <Text style={styles.modalText}>
+            Selecciona una entrada para comenzar a explorar.
+          </Text>
+          <View style={styles.imageContainer}>
+            {selectedImages.map((imgObj, index) => (
+              <View key={index} style={styles.imageWithCita}>
+                <Image source={imgObj.src} style={styles.modalImage} />
+                <Text style={styles.imageCita}>{imgObj.cita}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      );
+    }
+    if (selectedImages && selectedImages.length > 0) {
+      return (
+        <View style={styles.bodyModal}>
+          <Text style={styles.TitleM}>{currentImage2}</Text>
+          <Text style={styles.modalText}>
+            {Guias[currentImage2]?.descripcion}
+          </Text>
+          <View style={styles.imageContainer}>
+            {selectedImages.map((imgObj, index) => (
+              <View key={index} style={styles.imageWithCita}>
+                <Image source={imgObj.src} style={styles.modalImage} />
+                <Text style={styles.imageCita}>{imgObj.cita}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      );
+    }
+
     switch (currentImage2) {
       case "Biblioteca":
         return (
           <View style={styles.bodyModal}>
             <View style={styles.TitleModal}>
-              <Text style={styles.TitleM}>Esta es la biblioteca</Text>
+              <Text style={styles.TitleM}>Esta es la Biblioteca Central</Text>
+            </View>
+            <View style={styles.ModalImageContain}>
+              <Image
+                source={require("../assets/biblioteca-central.jpeg")}
+                style={styles.imgModal}
+              />
             </View>
           </View>
         );
@@ -76,7 +124,15 @@ export const Head = ({ currentImage2 }) => {
         return (
           <View style={styles.bodyModal}>
             <View style={styles.TitleModal}>
-              <Text style={styles.TitleM}>Esta es el Laboratio de biologia</Text>
+              <Text style={styles.TitleM}>
+                Esta es el Laborario de biologia
+              </Text>
+            </View>
+            <View style={styles.ModalImageContain}>
+              <Image
+                source={require("../assets/lab-biologia.png")}
+                style={styles.imgModal}
+              />
             </View>
           </View>
         );
@@ -109,6 +165,7 @@ export const Head = ({ currentImage2 }) => {
         );
         break;
       default:
+        return null;
     }
   };
   return (
@@ -164,11 +221,12 @@ const Sectionsite = () => {
   );
 };
 
-const MapSelection = ({ setcurrentImage2 }) => {
+const MapSelection = ({ setcurrentImage2, setSelectedImages }) => {
   // Una sola función de selección
   const seleccionarOpcion = (tipo, item) => {
     if (tipo === "entrada") {
       setSelectedEntrada(item);
+      setSelectedEntrada();
     } else if (tipo === "aoa") {
       setSelectedAOA(item);
       setcurrentImage2(item.titulo); // Actualizamos currentImage2
@@ -178,7 +236,6 @@ const MapSelection = ({ setcurrentImage2 }) => {
   // Primera Lista
   const [listaExpandida, setListaExpandida] = useState(false);
   const [selectedEntrada, setSelectedEntrada] = useState(null); // Guarda la selección de la primera lista
-
   // Fin Primera
   // Segunda Lista
   const [listaExpandida2, setListaExpandida2] = useState(false);
@@ -187,11 +244,38 @@ const MapSelection = ({ setcurrentImage2 }) => {
   const [overlayImage, setOverlayImage] = useState(null); // Imagen superpuesta
 
   // Fin Segunda Lista
+  const Guias = {
+    EntradaBiens: {
+      titulo: "Entrada bienestar",
+      descripcion: "Bienvenido al area de Bienestar",
+      imagenes: [
+        require("../assets/BienesT.jpeg"),
+        require("../assets/BienesR.jpeg"),
+        require("../assets/BienesL.jpeg"),
+      ],
+    },
+    EntradaEduca: {
+      titulo: "Entrada bienestar",
+      descripcion: "Bienvenido al area de Educacion",
+      imagenes: [
+        require("../assets/EducacionT.jpeg"),
+        require("../assets/EducacionR.jpeg"),
+        require("../assets/BienesL.jpeg"),
+      ],
+    },
+  };
+
   const entradas = [
     {
       id: "1",
       titulo: "Entrada Bienestar",
       imagen: require("../assets/EntradaBienestar.png"),
+      imagenEstatica: require("../assets/PlanoBiens.png"),
+    },
+    {
+      id: "2",
+      titulo: "Entrada Parqueadero",
+      imagen: require("../assets/gato.jpg"),
       imagenEstatica: require("../assets/PlanoBiens.png"),
     },
     // Para futuras entradas repetir el mismo detallado y asignar la imagen estatica que estara en el segundo mapa
@@ -232,21 +316,22 @@ const MapSelection = ({ setcurrentImage2 }) => {
     setListaExpandida2(!listaExpandida2);
   };
 
-  // Función que maneja la selección de una opción para la PRIMERA lista
   const seleccionarOpcion1 = (item) => {
     setSelectedEntrada(item);
-    setListaExpandida(false); // Colapsa la lista después de seleccionar una opción
+    setListaExpandida(false);
     setStaticImage(item.imagenEstatica);
     setOverlayImage(null);
+    const selectedGuide = Guias[item.titulo] || {};
+    setcurrentImage2(selectedGuide.titulo);
+    setSelectedImages(selectedGuide.imagenes || []);
   };
-
-  // Función que maneja la selección de una opción para la SEGUNDA lista
   const seleccionarOpcion2 = (item) => {
     setcurrentImage2(item.titulo);
     setSelectedAOA(item);
     setListaExpandida2(false);
     setOverlayImage(item.imagen);
   };
+
   return (
     <View>
       {/* Primer bloque */}
@@ -403,7 +488,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-  // Map Selection
+  // Selection
   SelectionContainer: {
     justifyContent: "center",
     maxWidth: "100%",
@@ -489,6 +574,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderWidth: 1,
     width: "23%",
+    marginLeft: 5,
+    marginBottom: 10,
     height: "5%",
     borderRadius: 20,
     alignItems: "center",
@@ -501,7 +588,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-  TitleModal: {},
   TitleM: {
     fontFamily: "Montserrat",
     fontSize: 30,
@@ -510,8 +596,24 @@ const styles = StyleSheet.create({
   },
 
   bodyModal: {
-    backgroundColor: "pink",
+    borderRadius: 5,
+    borderWidth: 1,
+    backgroundColor: "white",
     marginLeft: 20,
     marginRight: 20,
+  },
+  modalText: {
+    textAlign: "center",
+  },
+
+  ModalImageContain: {
+    height:250,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  imgModal: {
+    width: 300,
+    height: 300,
+    resizeMode: "contain",
   },
 });
